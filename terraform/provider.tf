@@ -7,10 +7,17 @@ terraform {
       version = "~> 5.0"
     }
   }
+
+  backend "s3" {
+    bucket  = "tf-state-replication-source-350726165848"
+    key     = "terraform-aws-static-site.tfstate"
+    region  = "us-east-2"
+    encrypt = true
+  }
 }
 
 provider "aws" {
-  region = var.aws_region
+  region = var.region
 
   default_tags {
     tags = {
