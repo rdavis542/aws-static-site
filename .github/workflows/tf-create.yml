@@ -11,6 +11,11 @@ on:
     paths:
       - 'terraform/**'
   workflow_dispatch:
+    inputs:
+      plan_only:
+        description: 'Run plan only, skip apply'
+        type: boolean
+        default: false
 
 jobs:
   terraform:
@@ -22,4 +27,5 @@ jobs:
     with:
       aws_region: us-east-1
       tf_vars: '{"region":"us-east-1","domain_name":"rdconsult.ing","site_name":"rdconsult-ing"}'
+      plan_only: ${{ github.event.inputs.plan_only == 'true' }}
     secrets: inherit
